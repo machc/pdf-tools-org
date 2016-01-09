@@ -1,0 +1,32 @@
+* Introduction
+pdf-tools-org is an emacs package that provides integration between pdf-tools and org-mode.
+The main features are importing and exporting pdf annotations from/to org files.
+
+* Installation
+- clone this repo to $PACKAGEDIR:
+#+BEGIN_SRC sh
+cd $PACKAGEDIR
+git clone https://github.com/pinguim06/pdf-tools-org
+#+END_SRC
+
+- add initialization your .emacs
+#+BEGIN_SRC elisp
+(add-to-list 'load-path "$PACKAGEDIR/pdf-tools-org")
+(require 'pdf-tools-org)
+#+END_SRC
+
+- if you want to auto export the annotations after saving a pdf, also add this:
+#+BEGIN_SRC elisp
+(add-hook 'after-save-hook
+          (lambda ()
+            (when (eq major-mode 'pdf-view-mode) (pdf-tools-org-export-to-org))))
+#+END_SRC
+
+* Usage
+- Use =(pdf-tools-org-export-to-org)= to export annotations of current pdf file being viewed in PDFView mode to an org file.
+- Use =(pdf-tools-org-import-from-org ORGFILE)= to import annotations from ORGFILE.
+
+* Known issues
+- Importing is not working quite well yet -- multiple annotations may be merged into one and multiple imports may create duplicates.
+
+
