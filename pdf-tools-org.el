@@ -46,6 +46,8 @@ need region."
                            (buffer-name))))
         (buffer (current-buffer)))
     (with-temp-buffer
+      ;; org-set-property sometimes never returns if buffer not in org-mode
+      (org-mode)
       (insert (concat "#+TITLE: Notes for " (file-name-sans-extension filename)))
       (mapc
        (lambda (annot) ;; traverse all annotations
