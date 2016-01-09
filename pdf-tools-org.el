@@ -8,7 +8,11 @@
 ;;; Code:
 
 (require 'pdf-tools)
+(require 'cl-lib)
 
+(defconst pdf-tools-org-non-exportable-types
+  (list 'link)
+  "Types of annotation that are not to be exported")
 (defconst pdf-tools-org-exportable-properties
   (list 'page 'edges 'id 'flags 'color 'modified 'label 'subject 'opacity 'created 'markup-edges 'icon))
 
@@ -71,7 +75,10 @@ need region."
                  (org-set-property (symbol-name (car field))
                                    (format "%s" (cdr field)))))
             annot)))
-       annots)
+       (cl-remove-if
+        (lambda (annot) (member (pdf-annot-get-type annot) pdf-tools-org-non-exportable-types))
+        annots)
+       )
       (org-set-tags 1)
       (write-file filename t))))
 
