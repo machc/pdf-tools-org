@@ -10,9 +10,18 @@
 (require 'pdf-tools)
 (require 'cl-lib)
 
+(defgroup pdf-tools-org nil
+  "pdf-tools and org-mode integration."
+  :group 'pdf-tools)
+
+(defcustom pdf-tools-org-export-confirm-overwrite t
+  "If nil, overwrite org file when exporting without asking for confirmation."
+  :group 'pdf-tools-org
+  :type 'boolean)
+
 (defconst pdf-tools-org-non-exportable-types
   (list 'link)
-  "Types of annotation that are not to be exported")
+  "Types of annotation that are not to be exported.")
 (defconst pdf-tools-org-exportable-properties
   (list 'page 'edges 'id 'flags 'color 'modified 'label 'subject 'opacity 'created 'markup-edges 'icon))
 
@@ -80,7 +89,7 @@ need region."
         annots)
        )
       (org-set-tags 1)
-      (write-file filename t))))
+      (write-file filename pdf-tools-org-export-confirm-overwrite))))
 
 (defun pdf-tools-org-import-from-org (orgfile)
   "Import annotations from an Org file."
