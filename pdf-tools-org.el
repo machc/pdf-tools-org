@@ -30,6 +30,18 @@
 (defconst pdf-tools-org-importable-properties
   (list 'contents 'edges 'flags 'color 'label 'opacity 'icon))
 
+(defun pdf-tools-org-switch-to-pdf-or-org ()
+  "Switch buffers; from org to pdf or from pdf to org."
+  (interactive)
+  (let ((ext (file-name-extension (buffer-file-name)))
+        (base (concat
+               (file-name-directory (buffer-file-name))
+               (file-name-base (buffer-file-name)))))
+    (cond
+     ((string= ext "org") (find-file (concat base ".pdf")))
+     ((string= ext "pdf") (find-file (concat base ".org")))
+     (t (message "Not in org or pdf file.")))))
+
 (defun pdf-tools-org-edges-to-region (edges)
   "Attempt to get 4-entry region \(LEFT TOP RIGHT BOTTOM\) from several EDGES.
 We need this to import annotations and to get marked-up text, because
