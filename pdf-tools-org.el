@@ -84,6 +84,7 @@ need region."
           right1
           (- bottom1 (/ (- bottom1 top1) 3)))))
 
+;;;###autoload
 (defun pdf-tools-org-export-to-org ()
   "Export annotations to an Org file."
   (interactive)
@@ -125,6 +126,7 @@ need region."
       (org-set-tags 1)
       (write-file filename pdf-tools-org-export-confirm-overwrite))))
 
+;;;###autoload
 (defun pdf-tools-org-import-from-org (orgfile)
   "Import annotations from an Org file."
   (interactive (list (ido-read-file-name "Org file to import from: ")))
