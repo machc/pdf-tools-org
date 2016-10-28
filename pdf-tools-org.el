@@ -128,7 +128,7 @@ need region."
 
 ;;;###autoload
 (defun pdf-tools-org-import-from-org (orgfile)
-  "Import annotations from an Org file."
+  "Import annotations from an Org file `ORGFILE'."
   (interactive (list (ido-read-file-name "Org file to import from: ")))
   (let ((pdfbuffer (current-buffer)))
     (save-window-excursion
