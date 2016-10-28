@@ -1,6 +1,28 @@
 ;;; pdf-tools-org.el --- pdf-tools and org-mode integration
 
+;; Copyright (C) 2016 Carlos
+
+;; Author: Carlos https://github.com/machc
+;; Keywords: pdf-tools, export, annotations, org
+;; Package: pdf-tools-export-annot
+;; Version: 0.10
+;; Package-Requires: ((emacs "24.3") (pdf-tools "0.70") (cl-lib "0.3"))
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 ;;; Commentary:
+;;
 ;; pdf-tools-org provides integration between pdf-tools and org-mode.
 ;; The main features are importing and exporting pdf annotations from/to
 ;; org files.
