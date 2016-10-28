@@ -183,4 +183,5 @@ need region."
 
 
 (provide 'pdf-tools-org)
-;;; pdf-tools-org ends here
+
+;;; pdf-tools-org.el ends here
