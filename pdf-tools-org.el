@@ -76,19 +76,31 @@ need region."
       (insert (concat "#+TITLE: Notes for " (file-name-sans-extension filename)))
       (mapc
        (lambda (annot) ;; traverse all annotations
-         (progn
+         (let* ((page (pdf-annot-get annot 'page))
+                (has-markup-edges (pdf-annot-get annot 'markup-edges))
+                (edges (if has-markup-edges
+                           (car (pdf-annot-get annot 'markup-edges))
+                         (pdf-annot-get annot 'edges)))
+                (contents (pdf-annot-get annot 'contents))
+                (id (symbol-name (pdf-annot-get-id annot)))
+                (type (symbol-name (pdf-annot-get-type annot))))
            (org-insert-heading-respect-content)
-           (insert (symbol-name (pdf-annot-get-id annot)))
-           (insert (concat " :" (symbol-name (pdf-annot-get-type annot)) ":"))
+           (insert (concat "[[pdfview:"
+                           (buffer-name buffer) "::"
+                           (number-to-string page) "++"
+                           ;; height
+                           (number-to-string (nth 1 edges)) "]["
+                           id "]]"))
+           (insert (concat " :" type ":"))
            ;; insert text from marked-up region in an org-mode quote
-           (when (pdf-annot-get annot 'markup-edges)
+           (when has-markup-edges
              (insert (concat "\n#+BEGIN_QUOTE\n"
                              (with-current-buffer buffer
-                               (pdf-info-gettext (pdf-annot-get annot 'page)
+                               (pdf-info-gettext page
                                                  (pdf-tools-org-edges-to-region
                                                   (pdf-annot-get annot 'markup-edges))))
                              "\n#+END_QUOTE")))
-           (insert (concat "\n\n" (pdf-annot-get annot 'contents)))
+           (insert (concat "\n\n" contents))
            ;; set org properties for each of the remaining fields
            (mapcar
             '(lambda (field) ;; traverse all fields
