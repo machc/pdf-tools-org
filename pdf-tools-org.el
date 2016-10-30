@@ -147,8 +147,12 @@ need region."
                   properties))))
            (org-entry-properties))
           ;; include 'type
-          (push (cons 'type (intern (car (org-get-tags))))
-                properties)
+          (let ((typestr (if (org-get-tags)
+                             (intern (car (org-get-tags)))
+                           (re-search-forward ":\\([^:]*?\\):$")
+                           (intern (match-string-no-properties 1)))))
+            (push (cons 'type typestr)
+                  properties))
           ;; add contents -- they are the subtree text, after the properties
           (push (cons 'contents
                       (let ((beg (save-excursion (re-search-forward ":END:\n") (point)))
