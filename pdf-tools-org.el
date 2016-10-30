@@ -1,6 +1,28 @@
 ;;; pdf-tools-org.el --- pdf-tools and org-mode integration
 
+;; Copyright (C) 2016 Carlos
+
+;; Author: Carlos https://github.com/machc
+;; Keywords: pdf-tools, export, annotations, org
+;; Package: pdf-tools-export-annot
+;; Version: 0.10
+;; Package-Requires: ((emacs "24.3") (pdf-tools "0.70") (cl-lib "0.3"))
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 ;;; Commentary:
+;;
 ;; pdf-tools-org provides integration between pdf-tools and org-mode.
 ;; The main features are importing and exporting pdf annotations from/to
 ;; org files.
@@ -62,6 +84,7 @@ need region."
           right1
           (- bottom1 (/ (- bottom1 top1) 3)))))
 
+;;;###autoload
 (defun pdf-tools-org-export-to-org ()
   "Export annotations to an Org file."
   (interactive)
@@ -115,8 +138,9 @@ need region."
       (org-set-tags 1)
       (write-file filename pdf-tools-org-export-confirm-overwrite))))
 
+;;;###autoload
 (defun pdf-tools-org-import-from-org (orgfile)
-  "Import annotations from an Org file."
+  "Import annotations from an Org file `ORGFILE'."
   (interactive (list (ido-read-file-name "Org file to import from: ")))
   (let ((pdfbuffer (current-buffer)))
     (save-window-excursion
@@ -178,4 +202,5 @@ need region."
 
 
 (provide 'pdf-tools-org)
-;;; pdf-tools-org ends here
+
+;;; pdf-tools-org.el ends here
