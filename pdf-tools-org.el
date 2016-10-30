@@ -100,7 +100,7 @@ need region."
                                                  (pdf-tools-org-edges-to-region
                                                   (pdf-annot-get annot 'markup-edges))))
                              "\n#+END_QUOTE")))
-           (insert (concat "\n\n" contents))
+           (insert (concat "\n" contents))
            ;; set org properties for each of the remaining fields
            (mapcar
             '(lambda (field) ;; traverse all fields
@@ -155,8 +155,11 @@ need region."
                   properties))
           ;; add contents -- they are the subtree text, after the properties
           (push (cons 'contents
-                      (let ((beg (save-excursion (re-search-forward ":END:\n") (point)))
-                            (end (save-excursion (org-next-visible-heading 1) (point))))
+                      (let* ((end (save-excursion (org-next-visible-heading 1) (point)))
+                             (beg (save-excursion
+                                   (unless (re-search-forward "#\\+END_QUOTE\n" end t)
+                                     (re-search-forward ":END:\n"))
+                                   (point))))
                         (buffer-substring-no-properties beg end)))
                 properties)
           ;; add annotation
