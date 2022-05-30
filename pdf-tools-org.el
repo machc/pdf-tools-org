@@ -135,7 +135,6 @@ need region."
         (lambda (annot) (member (pdf-annot-get-type annot) pdf-tools-org-non-exportable-types))
         annots)
        )
-      (org-set-tags 1)
       (write-file filename pdf-tools-org-export-confirm-overwrite))))
 
 ;;;###autoload
